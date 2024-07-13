@@ -24,11 +24,9 @@ Penggunaan model regresi linier yang diperkuat dengan jaringan saraf tiruan (Neu
 6. Evaluasi: Mengukur performa model dengan metrik seperti MAE dan RMSE.
 7. Visualisasi Hasil: Menampilkan hasil prediksi dan residu.
 
-## Screenshots
-
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
-
 ## Dataset
+
+![App Screenshot](./image/image.png)
 
 Penjelasan Dataset, EDA dan Proses features Dataset
 Dataset
@@ -37,6 +35,10 @@ Dataset
 - Deskripsi: Dataset berisi informasi tentang jumlah kendaraan yang melintasi berbagai titik selama periode waktu tertentu.
 
 ### EDA (Exploratory Data Analysis)
+
+![App Screenshot](./image/EDA.png)
+
+![App Screenshot](./image/EDA2.png)
 
 Memvisualisasikan distribusi jumlah kendaraan.
 Menambahkan kolom fitur baru dari kolom waktu seperti jam, hari dalam seminggu, dan bulan.
@@ -55,16 +57,42 @@ Menggunakan fitur Polynomial untuk menambah kompleksitas model.
 - Mengubah kolom waktu menjadi format datetime.
 - Menambahkan kolom fitur baru (Hour, DayOfWeek, Month).
 
+`df['Hour'] = df['DateTime'].dt.hour`
+
+`df['DayOfWeek'] = df['DateTime'].dt.dayofweek`
+
+`df['Month'] = df['DateTime'].dt.month`
+
 2. Membangun Model
 
 - Membuat model Neural Network dengan lapisan Dense.
 - Menggunakan Adam optimizer dan mean_squared_error loss function.
 - Menyusun model dengan arsitektur 64 neuron (relu) -> 32 neuron (relu) -> 1 neuron (output).
 
+`degree = 2`
+
+`poly_features = PolynomialFeatures(degree=degree)`
+
+`X_train_poly = poly_features.fit_transform(X_train)`
+
+`X_test_poly = poly_features.trans`
+
+`model = Sequential([
+    Dense(64, activation='relu', input_shape=(X_train.shape[1],)),
+    Dense(32, activation='relu'),
+    Dense(1)
+])`
+
+`model.compile(optimizer='adam', loss='mean_squared_error', metrics=['mae'])`
+
+`model.summary()`
+
 3. Training
 
 - Melatih model dengan 25 epochs dan batch size 32.
 - Validasi dengan 20% dari data training.
+
+![App Screenshot](./image/layer.png)
 
 ## Perfoma Model
 
@@ -132,6 +160,8 @@ Root Mean Squared Error (RMSE): 0.16204942836409167`
 Model Neural Network mampu memprediksi jumlah kendaraan dengan tingkat kesalahan yang cukup rendah (MAE dan RMSE).
 
 ## Kesimpulan
+
+![App Screenshot](./image/output.png)
 
 Prediksi yang dihasilkan bisa digunakan untuk mengidentifikasi waktu dan lokasi yang berpotensi tinggi kecelakaannya.
 Model bisa ditingkatkan dengan menambahkan lebih banyak data dan fitur.
