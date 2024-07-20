@@ -1,3 +1,6 @@
+## Isyeh Rafi Maulana
+## A11.2022.14060
+
 # Prediksi Tingkat Kecelakaan Lalu Lintas
 
 ## Ringkasan dan Permasalahan

@@ -1,3 +1,6 @@
+## Bernandito Galang E.J
+## A11.2022.14091
+
 ## Dataset
 
 Penjelasan Dataset, EDA, dan Proses Features Dataset
