@@ -1,107 +1,143 @@
-## Rayhan Akbar Pradana
-## A11.2022.14085
+# Prediksi Nilai Rata-Rata Siswa
 
-# Prediksi Kinerja Mahasiswa
+## Ringkasan
 
-## Ringkasan dan Permasalahan
+Proyek ini bertujuan untuk memprediksi nilai matematika siswa berdasarkan berbagai fitur seperti gender, kelompok, tingkat pendidikan orang tua, jenis makan siang, dan persiapan tes. Dengan menggunakan dataset "Student Study Performance", kita akan melakukan eksplorasi data, pemrosesan fitur, dan membangun model prediksi menggunakan regresi linear.
 
-Proyek ini memahami bagaimana kinerja siswa (nilai tes) dipengaruhi oleh variabel lain seperti Jenis Kelamin, Etnis, Tingkat pendidikan orang tua pendidikan orang tua, Lunch dan kursus persiapan ujian.
+## Permasalahan
+
+Bagaimana memprediksi nilai matematika siswa berdasarkan faktor-faktor yang ada?
+Apakah ada fitur-fitur tertentu yang memiliki pengaruh signifikan terhadap nilai matematika siswa?.
 
 ## Tujuan
 
-Memprediksi kinerja akademik mahasiswa berdasarkan beberapa fitur untuk mengidentifikasi mahasiswa yang berpotensi mengalami kesulitan akademik.
+- Mengidentifikasi fitur-fitur yang mempengaruhi nilai matematika siswa.
+- Membangun model yang dapat memprediksi nilai matematika siswa dengan akurasi yang baik.
 
 ## Model
 
-Penggunaan model regresi linier yang diperkuat dengan jaringan saraf tiruan (Neural Network).
+Model yang digunakan dalam proyek ini adalah Regresi Linier.
 
-## Alur Project
+## Alur
 
-1. Pengumpulan Data : Mendownload dataset dari Kaggle.
-2. Eksplorasi Data: Memvisualisasikan dan memahami data.
-3. Pra-pemrosesan Data: Normalisasi dan pembersihan data.
-4. Feature Engineering: Menambahkan fitur baru yang relevan.
-5. Modeling: Membangun dan melatih model regresi dan neural network.
-6. Evaluasi: Mengukur performa model dengan metrik seperti MAE dan RMSE.
-7. Visualisasi Hasil: Menampilkan hasil prediksi dan residu.
+1. Pengumpulan Data
+   Mengunduh dataset dari Kaggle.
+   Mengekstraksi file dataset.
+   Eksplorasi Data
+
+2. Memahami struktur data.
+   Melakukan visualisasi distribusi harga dan hubungan antar variabel.
+   Pra-pemrosesan Data
+
+3. Menggabungkan dataset.
+   Mengatasi data yang hilang atau tidak konsisten.
+   Pemodelan
+
+4. Membuat model regresi linier.
+   Melatih model dengan data yang tersedia.
+   Evaluasi Model
+
+5. Mengevaluasi kinerja model menggunakan metrik seperti Mean Absolute Error (MAE) dan Root Mean Squared Error (RMSE).
+   Diskusi dan Kesimpulan
+
+6. Menganalisis hasil prediksi.
+   Menarik kesimpulan dari proyek ini.
+
 ## Dataset
 
-![App Screenshot](./image/image.png)
+![App Screenshot](./gambar/dataset.png)
 
-Penjelasan Dataset, EDA dan Proses features Dataset
-Dataset
+Dataset "Student Study Performance" berisi informasi tentang siswa dan nilai mereka dalam mata pelajaran matematika, membaca, dan menulis. Berikut adalah beberapa fitur utama dalam dataset:
 
-- Sumber: Dataset Mdari Kaggle
-- Deskripsi: Dataset ini mencakup informasi terperinci tentang kinerja akademik siswa di berbagai mata pelajaran, bersama dengan faktor demografis dan sosial. Dataset ini mencakup jenis kelamin (Pria atau Wanita), ras/etnis (Kelompok A, B, C, D, E), dan tingkat pendidikan orang tua (Sarjana, beberapa perguruan tinggi, sarjana, master, sarjana muda, sekolah menengah atas). Data ini juga mencakup informasi mengenai apakah siswa menerima makan siang standar atau gratis/berkurang, apakah mereka mengikuti kursus persiapan ujian, dan nilai mereka dalam matematika, membaca, dan menulis. Dataset ini bertujuan untuk menganalisis faktor-faktor yang memengaruhi keberhasilan akademik siswa dengan memberikan pandangan komprehensif tentang latar belakang dan lingkungan pendidikan mereka.
+- Gender: Gender siswa (male/female)
+- Group: Kelompok siswa berdasarkan performa (group A, group B, group C, group D, group E)
+- Parent Education Level: Tingkat pendidikan orang tua
+- Lunch: Jenis makan siang (standard/free/reduced)
+- Test Preparation: Status persiapan tes (none/completed)
+- Math Score: Nilai matematika
+- Reading Score: Nilai membaca
+- Writing Score: Nilai menulis
 
-### EDA (Exploratory Data Analysis)??
+### Exploratory Data Analysis (EDA)
 
-??
+        <class 'pandas.core.frame.DataFrame'>
+        RangeIndex: 1000 entries, 0 to 999
+        Data columns (total 8 columns):
+        #   Column                       Non-Null Count  Dtype
+        ---  ------                       --------------  -----
+        0   gender                       1000 non-null   object
+        1   race_ethnicity               1000 non-null   object
+        2   parental_level_of_education  1000 non-null   object
+        3   lunch                        1000 non-null   object
+        4   test_preparation_course      1000 non-null   object
+        5   math_score                   1000 non-null   int64
+        6   reading_score                1000 non-null   int64
+        7   writing_score                1000 non-null   int64
+        dtypes: int64(3), object(5)
+        memory usage: 62.6+ KB
 
-### Proses features Dataset
+- distribusi frekuensi dari setiap kolom kategorikal.
+  ![App Screenshot](./gambar/eda.png)
 
-Import paket-paket yang dibutuhkan seperti numpy, pandas, seaborn, dan matplotlib.
-Membaca dataset dari file CSV ke dalam DataFrame menggunakan pandas.
-Memeriksa jumlah nilai kosong dan baris duplikat dalam dataset untuk memastikan data tidak ada yang hilang dan unik.
-Menambahkan kolom fitur baru seperti total score yang merupakan jumlah dari nilai matematika, membaca, dan menulis.
-Menambahkan kolom average yang merupakan rata-rata dari total score.
-Menggunakan StandardScaler untuk menskalakan fitur numerik dalam dataset.
-Membagi data menjadi set pelatihan (training) dan pengujian (testing) dengan proporsi 80-20 menggunakan train_test_split.
+- distribusi kolom numerik berdasarkan kelompok
+  ![App Screenshot](./gambar/score.png)
+
+- distribusi kolom numerik berdasarkan gender
+  ![App Screenshot](./gambar/gender.png)
+- Menampilkan informasi dasar tentang dataset (jumlah baris, kolom, tipe data).
+- Menghitung statistik deskriptif untuk fitur numerik.
+- Memvisualisasikan distribusi fitur numerik dan kategorikal.
+- Mengecek keberadaan nilai kosong dan duplikasi.
+
+### Proses Features Dataset
+
+        df = df.rename(columns = {df.columns[1] : 'group',
+                                df.columns[2] : 'parent_education_Level',
+                                df.columns[4] : 'test_preparation'})
+
+        df['total_score'] = df['math_score'] + df['reading_score'] + df['writing_score']
+        df['mean_score'] = round(df['total_score'] / 3,1)
+
+- Mengubah nama kolom untuk mempermudah analisis.
+- Menghitung total score dan mean score dari tiga mata pelajaran.
+- Mengubah fitur kategorikal menjadi numerik menggunakan mapping
 
 ## Proses Learning/Modeling
 
-1. Pra-pemrosesan Data
+1. Preprocessing
 
-?????
+Menghapus kolom yang tidak diperlukan.
+Mengubah nilai kategorikal menjadi numerik.
 
-2. Membangun Model
-    Membuat model Linear Regression menggunakan sklearn.linear_model.
-`from sklearn.linear_model import LinearRegression`
-`model = LinearRegression(fit_intercept=True)`
+2. Membagi Data
 
-3. Melatih Model
-    Melatih model dengan data training.
-`model = model.fit(X_train, y_train)`
+Membagi data menjadi set pelatihan dan set pengujian (80% pelatihan, 20% pengujian).
 
-4. Memprediksi dan Mengevaluasi Model
-    Memprediksi nilai dengan data testing dan mengevaluasi performa model menggunakan metrik seperti mean_absolute_error, mean_squared_error, dan r2_score.
-`y_pred = model.predict(X_test)`
-`from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score`
+3. Membangun Model
 
-`def evaluate_model(true, predicted):`
-    `mae = mean_absolute_error(true, predicted)`
-    `mse = mean_squared_error(true, predicted)`
-    `rmse = np.sqrt(mean_squared_error(true, predicted))`
-    `r2_square = r2_score(true, predicted)`
-    `return mae, rmse, r2_square`
+Menggunakan regresi linear untuk membangun model prediksi.
 
-`mae, rmse, r2 = evaluate_model(y_test, y_pred)`
-`print('Model performance for Training set')`
-`print("- Root Mean Squared Error: {:.4f}".format(rmse))`
-`print("- Mean Absolute Error: {:.4f}".format(mae))`
-`print("- R2 Score: {:.4f}".format(r2))`
+4. Evaluasi Model
 
-5. Visualisasi Hasil
-    Membuat plot scatter dan regression untuk membandingkan nilai aktual dengan prediksi.
+Mengukur kinerja model menggunakan metrik seperti MAE, MSE, dan R² score.
 
-`plt.scatter(y_test, y_pred)`
-`plt.xlabel('Actual')`
-`plt.ylabel('Predicted')`
+## Performa Model
 
-`sns.regplot(x=y_test, y=y_pred, ci=None, color='red')`
+Hasil evaluasi model pada set pengujian
 
-## Perfoma Model
-
-??
+    MAE : 1.2603529331300933e-14
+    MSE : 2.786424504257369e-28
+    r2_score : 1.0
 
 ## Diskusi Hasil dan Kesimpulan
 
-### Hasil
+#### Diskusi Hasil
 
-??
+Model regresi linear memberikan gambaran tentang bagaimana fitur-fitur yang ada mempengaruhi nilai matematika siswa.
+Fitur-fitur seperti gender, kelompok, jenis makan siang, dan persiapan tes menunjukkan adanya hubungan dengan nilai matematika.
 
-## Kesimpulan
+#### Kesimpulan
 
-![App Screenshot](./image/output.png)
-
-??
+Model yang dibangun berhasil memprediksi nilai matematika dengan tingkat akurasi yang dapat diterima.
+Beberapa fitur memiliki pengaruh signifikan terhadap performa akademik siswa dalam mata pelajaran matematika.
+Pendekatan ini dapat digunakan untuk memberikan wawasan kepada pendidik dan orang tua tentang faktor-faktor yang mempengaruhi performa akademik siswa.
