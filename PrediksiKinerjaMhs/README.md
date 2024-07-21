@@ -1,3 +1,6 @@
+## Rayhan Akbar Pradana
+## A11.2022.14085
+
 # Prediksi Nilai Rata-Rata Siswa
 
 ## Ringkasan
